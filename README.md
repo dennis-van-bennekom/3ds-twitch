@@ -1,3 +1,3 @@
-# template
+# Twitch (WIP)
 
-This is a template for starting new 3DS libctru projects.
+Twitch player for 3DS. Inspired by https://github.com/Victorma/Twitch3DS
