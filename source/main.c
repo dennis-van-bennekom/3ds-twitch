@@ -1,10 +1,9 @@
 #include <string.h>
 #include <stdio.h>
-
+#include <inttypes.h>
 #include <3ds.h>
 
 #include "http.h"
-#include "json.h"
 
 typedef enum {
     STATE_LOADING_GAMES,
@@ -17,21 +16,24 @@ typedef enum {
 state_t state = STATE_LOADING_GAMES;
 
 void loadingGames() {
-    char **output = malloc(sizeof (char*));
-    int output_size = 0;
-    json_value *json;
-    int i = 0;
-    Result res;
+    Result ret = 0;
 
-    res = http_request("https://api.twitch.tv/helix/games/top", (u8 **)output, &output_size);
-    if (res != 0) {
-        printf("\x1b[1;1HError getting game list");
-        return;
-      }
+    ret = http_download("https://api.twitch.tv/helix/games/top");
 
-    json = json_parse(*output, output_size);
+    printf("return from http_download: %" PRId32 "\n", ret);
 
-    printf("\x1b[1;1HIk leef nog");
+    // consoleClear();
+
+//    json = json_parse(*output, output_size);
+//    json_value *gamearray = json->u.object.values[2].value;
+//    json_value *gameobject;
+//
+//    for (int i = 0; i < gamearray->u.array.length; i++) {
+//        gameobject = gamearray->u.array.values[i]->u.object.values[0].value;
+//
+//        //printf(gameobject->u.object.values[0].value->u.string.ptr);
+//        //printf("\n");
+//    }
 
     state = STATE_SELECTING_GAME;
 }

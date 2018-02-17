@@ -2,4 +2,4 @@
 
 #include <3ds.h>
 
-Result http_request(const char *url, u8 **output, int *output_size);
+Result http_download(const char *url);
